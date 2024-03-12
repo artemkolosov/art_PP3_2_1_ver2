@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<h1>Профиль пользователя<br>
+    Логин: <td th:utext="${user.getUsername()}"></td></h1>
+
+
+
+
+<table border="1">
+    <tr>
+
+        <th>Id</th>
+        <th>Логин</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>E-mail</th>
+
+    </tr>
+
+    <!--    th:href="@{${url}}"-->
+
+    <tr>
+
+        <td><a th:utext="${user.getId()}"> Id </a></td>
+        <td><a th:utext="${user.getUsername()}">Логин</a></td>
+        <td><a th:utext="${user.getFirstname()}">Имя</a></td>
+        <td><a th:utext="${user.getLastname()}">Фамилия</a></td>
+        <td><a th:utext="${user.getAge()}">Возраст</a></td>
+        <td><a th:utext="${user.getEmail()}">E-mail</a></td>
+
+    </tr>
+</table>
+
+
+
+
+
+<br/>
+<h2>Уровень доступа:</h2>
+<table>
+    <tr th:each="role : ${user.getRoles()}">
+        <td th:utext="${role.getName()}"></td>
+    </tr>
+</table>
+<br/>
+<br/>
+<br/>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <form th:if="user" th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+        <input type="submit" value="Удалить свой профиль"/>
+    </form>
+    <br/>
+    <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">
+        <input type="button" value="Редактировать свой профиль"/>
+    </a>
+    <h4>
+        <a href="/admin">
+            <input type="button" value="Показать список пользователей">
+        </a>
+    </h4>
+</div>
+
+<form th:method="POST" th:action="@{/logout}">
+    <button type="submit">Выйти</button>
+</form>
+</body>
+</html>

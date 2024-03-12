@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+</head>
+<body>
+<h1>Создать пользователя</h1>
+<form th:method="POST" th:action="@{/admin}" th:object="${user}">
+    <p>
+        <label for="username">Введите логин (обязательно):</label>
+        <input type="text" required th:field="*{username}" id="username" placeholder="логин">
+    </p>
+
+
+    <p>
+        <label for="firstName">Введите имя:</label>
+        <input type="text"  th:field="*{firstname}" id="firstName" placeholder="имя">
+    </p>
+
+
+    <p>
+        <label for="lastname">Введите фаимилию:</label>
+        <input type="text" th:field="*{lastname}" id="lastname" placeholder="фамилия">
+    </p>
+    <p>
+        <label for="age">Введите возраст:</label>
+        <input type="text" th:field="*{age}" id="age" placeholder="возраст">
+    </p>
+
+    <p>
+        <label for="email">Введите E-mail:</label>
+        <input type="text" th:field="*{age}" id="email" placeholder="e-mail">
+    </p>
+
+    <p>
+        <label for="password">Введите пароль (обязательно):</label>
+        <input type="password" required th:field="*{password}" id="password" placeholder="пароль">
+    </p>
+    Определите уровень доступа:
+    <p>
+        <input type="checkbox" id="user" name="roles" value="2" checked><label for="user"> Пользователь (ROLE_USER)</label>
+        <br/>
+        <input type="checkbox" id="admin" name="roles" value="1"><label for="admin"> Администратор (ROLE_ADMIN)</label>
+    </p>
+    <input type="submit" value="Сохранить"/>
+</form>
+<br/>
+<form th:method="POST" th:action="@{/logout}">
+    <button type="submit">Выйти</button>
+</form>
+</body>
+</html>
